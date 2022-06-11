@@ -145,6 +145,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fea01">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海注">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">发布新博客的舒适方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-11 14:09:33 / 修改时间：14:32:02" itemprop="dateCreated datePublished" datetime="2022-06-11T14:09:33+08:00">2022-06-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/help/" itemprop="url" rel="index"><span itemprop="name">help</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="hexo-发布博客的问题及解决办法"><a href="#hexo-发布博客的问题及解决办法" class="headerlink" title="hexo 发布博客的问题及解决办法"></a>hexo 发布博客的问题及解决办法</h2><p>发布新博客使用的工具为</p>
+<p>hexo + typora + 本地图片</p>
+<p>存在的问题，<strong>图片显示失败</strong></p>
+<p>解决方案：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265077468">参考链接-知乎</a></p>
+<p>安装插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-marked</span><br></pre></td></tr></table></figure>
+
+<p>修改hexo 根目录下的 _config.yaml 文件，marked 为新添加</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>之后就可以在使用<code>![](image.jpg)</code>的方式愉快的插入图片了</p>
+<p>在使用typroa的方便之处在于可以实时预览markdown格式的文档，但是如果使用<code>![](image.jpg)</code>这种格式，就不能再编辑时看到图片，十分不便。解决办法如下：</p>
+<p>第一步，配置本地图片保存位置</p>
+<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142111925.png" alt="image-20220611142111925"></p>
+<p>第二步，文档编辑完毕之后，设置图片根目录为第一步的图片目录</p>
+<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142154930.png" alt="image-20220611142154930"></p>
+<p>效果如下图</p>
+<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142358870.png" alt="image-20220611142358870"></p>
+<p>在设置了根目录之后，粘贴图片，图片链接开头有&#x2F;，会导致hexo无法解析，需要删除&#x2F;,如下图所示</p>
+<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142831001.png" alt="image-20220611142831001"></p>
+<p>重新打开文件后，图片无法解析，因为图片根目录未设置，每次都需要重新设置一次。</p>
+<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611143037137.png" alt="image-20220611143037137"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/11/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -337,9 +426,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
