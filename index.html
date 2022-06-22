@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-22 22:29:06" itemprop="dateModified" datetime="2022-06-22T22:29:06+08:00">2022-06-22</time>
+                <time title="修改时间：2022-06-22 22:36:32" itemprop="dateModified" datetime="2022-06-22T22:36:32+08:00">2022-06-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,139 +212,14 @@
           <h2 id="总评"><a href="#总评" class="headerlink" title="总评"></a>总评</h2><p>​		《深入理解计算机系统》书名的翻译存在一定的误导，英文原名《Computer Systems A Programmer‘s Perspective》直译为 《程序员视角下的计算机系统》,所以使用CS:APP指代这本书。</p>
 <p>​		<strong>先上结论：CS:APP，值得学习</strong>。这本书站在初学者的视角，对计算机系统几大重要的部分做了深入浅出的介绍。如果读起来有困难，可以学得更深入一点后在尝试，心急的话可以辅以网课。不要怕耗费时间，付出的时间对得起获得的知识。</p>
 <p>​		对于计算机相关的初学者，看着厚厚的一本书，没有勇气开始阅读的话，请想想大学上过的许多不知所谓的课，空耗时间，收获寥寥。而这本给初学者量身定做的书，则会给你带来收获知识的惊喜。</p>
-<hr>
-<p>​		劝学结束，开始个人的感想。</p>
-<p>​		关于版本，我阅读的是中文版。（英文阅读学习能力欠缺，日后加强）首先，在2019年6月第1版中确实存在几处明显的错误，但很容易分辨，绝不可能影响理解。其次，对于翻译质量的争议，大可不必。对于专业书籍，名词准确，前后逻辑连贯就是合格的。中文版CSAPP毋庸置疑是合格的，由于原版的内容就足够优质，翻译的中文版质量远超国内大多数教科书。最后，因为微不足道的缺陷就做出否定判断，不是学习良好态度。</p>
-<p>​		关于内容深度，本书是CMU计算机相关专业的先行必修课，内容的特点在于覆盖面广，通俗易懂，由浅入深。有人指责其内容过浅可以跳过不读，直接读专门书籍，对此，我的看法是，这本书整体并不浅，先读专门书籍，再回头读这本书，也会有惊喜的收获。如果先读CS:APP,也请不要止步于此，继续阅读专门书籍，深入学习理论，并积极参加实践，实现理论。</p>
-<h2 id="阅读前水平"><a href="#阅读前水平" class="headerlink" title="阅读前水平"></a>阅读前水平</h2><p>​		先对能力水平做一个简单的划分。</p>
-<table>
-<thead>
-<tr>
-<th align="center">阶段名称</th>
-<th align="center">阶段能力</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">小白阶段</td>
-<td align="center">没接触过计算类专业，只是电子产品用户</td>
-</tr>
-<tr>
-<td align="center">初学阶段</td>
-<td align="center">学习过编程语言，对计算机系统的几个部分有简单的了解</td>
-</tr>
-<tr>
-<td align="center">中等阶段</td>
-<td align="center">对计算机系统整体有一定的了解，对几个方向有深入的认识</td>
-</tr>
-<tr>
-<td align="center">高等阶段</td>
-<td align="center">对计算机系统的各个环节如数家珍，但不要求在多个方向有创见</td>
-</tr>
-<tr>
-<td align="center">….</td>
-<td align="center">……</td>
-</tr>
-</tbody></table>
-<p>​		我曾在初学阶段购买了这本书，尝试阅读，最终在第三章终止了阅读。一方面是没有时间，另一方面是缺乏自学的前置知识，挫败感很强。</p>
-<p>​		进行了更加深入的学习，列举几个比较重要的项目</p>
-<ul>
-<li><p>搭建一个单周期CPU，运行机器指令程序（涉及计算机组成）</p>
-</li>
-<li><p>一个网络探测项目的后端搭建(涉及计算机网络，python)</p>
-</li>
-<li><p>编译原理相关的实验 （涉及编译，LLVM）</p>
-</li>
-<li><p>实现了支持多客户端的TLS VPN项目(涉及计算机网络, 多线程多进程并发)</p>
-</li>
-<li><p>组队从零实现了一个在硬件平台上可用的RISCV架构的类UNIX 操作系统 (涉及ISA，OS, 编译，链接，装载)</p>
-<p>做完这些，我自认为已经走到了初学阶段的末期，摸到了中等阶段的门槛。</p>
-<p>之后，重读CS:APP,速度前快，中慢，后快，粗略估计<strong>总耗时30~40h</strong>。</p>
-<p>有一种水平恰好相当的感觉，熟知的内容和陌生的内容六四开，读起来很舒适。</p>
-</li>
-</ul>
-<h2 id="CSAPP章节简评"><a href="#CSAPP章节简评" class="headerlink" title="CSAPP章节简评"></a>CSAPP章节简评</h2><p>由于我个人的学习和实践经历，以下章节的难度为主观评价，仅供参考</p>
-<table>
-<thead>
-<tr>
-<th align="center">章节名称</th>
-<th align="center">难度</th>
-<th align="center">备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">第1章 计算机系统漫游</td>
-<td align="center">易</td>
-<td align="center">入门常识</td>
-</tr>
-<tr>
-<td align="center">第2章 信息的表示和处理</td>
-<td align="center">中</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">第3章 程序的机器级表示</td>
-<td align="center">中</td>
-<td align="center">涉及过汇编</td>
-</tr>
-<tr>
-<td align="center">第4章 处理器体系结构</td>
-<td align="center">难</td>
-<td align="center">大部分未涉及过</td>
-</tr>
-<tr>
-<td align="center">第5章 优化程序性能</td>
-<td align="center">易</td>
-<td align="center">较好懂，但难精</td>
-</tr>
-<tr>
-<td align="center">第6章 存储器层次结构</td>
-<td align="center">中</td>
-<td align="center">计组涉及过部分</td>
-</tr>
-<tr>
-<td align="center">第7章 链接</td>
-<td align="center">难</td>
-<td align="center">即使涉及过，还是难</td>
-</tr>
-<tr>
-<td align="center">第8章 异常控制流</td>
-<td align="center">难</td>
-<td align="center">大部分未涉及过</td>
-</tr>
-<tr>
-<td align="center">第9章 虚拟内存</td>
-<td align="center">中</td>
-<td align="center">部分涉及过</td>
-</tr>
-<tr>
-<td align="center">第10章 系统及I&#x2F;O</td>
-<td align="center">中</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">第11章 网络编程</td>
-<td align="center">易</td>
-<td align="center">部分涉及过</td>
-</tr>
-<tr>
-<td align="center">第12章 并发编程</td>
-<td align="center">中</td>
-<td align="center">部分涉及过</td>
-</tr>
-</tbody></table>
-<h2 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h2><p>​		有很多可以延伸地方：</p>
-<p>​		《C++反汇编与逆向分析技术揭秘》作为 第3章 程序的机器级表示 的扩展。如果不熟悉C++，但是熟悉C，推荐《C++ primer》中英两版皆可，作为入门，然后上手一个1500行+ 的C++ 项目即可。</p>
-<p>​		《计算机组成与设计 硬件&#x2F;软件接口》 作为 第4,5,6章 的深入学习，更高阶的可以参考《计算机体系结构》</p>
-<p>​		《程序员的自我修养——链接、装载与库》 作为第7章 链接 的扩展，第7章有很多看着云里雾里的地方，需要加强学习。</p>
-<p>​		由于已经实现过一个OS内核，对于第9章和第10章的内容是较为熟悉的，对于主流OS的实现并不熟悉，可以深入学习Linux内核。如果此前对OS实现并不了解，可以参考一些OS数据，《操作系统导论》可以作为入门书籍。</p>
-<p>​		后三章的内容比较综合，都是我在各类项目中接触到的，可以参考《TCP&#x2F;IP 详解》卷一 卷二 用于了解网络协议栈的细节及其实现; modern C++的一些并发特性的实现，陈天 · Rust 编程第一课，这两者可以用于查看不同语言对于高并发的支持; 还可以查看 <strong>高性能服务器</strong>相关的书籍，这些涉及到架构设计方面，与分布式系统有强相关就不拓展了，以后有机会，可以试试这个方向。</p>
-<p>​		CS:APP 对于编译这个阶段是一笔带过的，但是这个部分也很重要，可以参考这个博客 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20130808">学习编程语言与编译优化的一个书单</a> 包括了：《程序设计语言——实践之路》（介绍语言及编译的大背景)；《自制编译器》 作者青木峰郎，有一个可用的C子集编译器实现；《编译器设计》，覆盖编译初级到中级的知识</p>
-<p>​		除了这些计算机系统的相关知识外，最重要的技能 应该是 编程能力和英语，</p>
-<p>​		编程和算法方向参考书籍如下：《数据结构和算法分析 C语言版》、《算法导论》、《编程珠玑》以及刷题。</p>
-<p>​		英语，各人有各人的方法，我主要是 刻意学习，学以致用。</p>
-<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><p>​	读完CS:APP，做了一些有趣的项目，给了我坚持做下去的信心。但在这里，需要给自己一些警醒。CS:APP 的英文版是国内一些高校系统编程教材，我只是做完了别人初入大二做了的东西。</p>
-<p>​	另外，也不必过于焦虑，学习是一个渐进的过程，我享受的是收获新知，勤于思考，并不是与人争逐。每一步都踩得踏实，会走得更远。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/06/14/02-CSAPP-%E8%AF%BB%E5%90%8E%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -394,7 +269,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-14 22:03:58" itemprop="dateModified" datetime="2022-06-14T22:03:58+08:00">2022-06-14</time>
+                <time title="修改时间：2022-06-22 22:38:04" itemprop="dateModified" datetime="2022-06-22T22:38:04+08:00">2022-06-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -420,29 +295,14 @@
           <h2 id="hexo-发布博客的问题及解决办法"><a href="#hexo-发布博客的问题及解决办法" class="headerlink" title="hexo 发布博客的问题及解决办法"></a>hexo 发布博客的问题及解决办法</h2><p>发布新博客使用的工具为</p>
 <p>hexo + typora + 本地图片</p>
 <p>存在的问题，<strong>图片显示失败</strong></p>
-<p>解决方案：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265077468">参考链接-知乎</a></p>
-<p>安装插件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-marked</span><br></pre></td></tr></table></figure>
-
-<p>修改hexo 根目录下的 _config.yaml 文件，marked 为新添加</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>之后就可以在使用<code>![](image.jpg)</code>的方式愉快的插入图片了</p>
-<p>在使用typroa的方便之处在于可以实时预览markdown格式的文档，但是如果使用<code>![](image.jpg)</code>这种格式，就不能再编辑时看到图片，十分不便。解决办法如下：</p>
-<p>第一步，配置本地图片保存位置</p>
-<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142111925.png" alt="image-20220611142111925"></p>
-<p>第二步，文档编辑完毕之后，设置图片根目录为第一步的图片目录</p>
-<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142154930.png" alt="image-20220611142154930"></p>
-<p>效果如下图</p>
-<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142358870.png" alt="image-20220611142358870"></p>
-<p>在设置了根目录之后，粘贴图片，图片链接开头有&#x2F;，会导致hexo无法解析，需要删除&#x2F;,如下图所示</p>
-<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611142831001.png" alt="image-20220611142831001"></p>
-<p>重新打开文件后，图片无法解析，因为图片根目录未设置，每次都需要重新设置一次。</p>
-<p><img src="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/image-20220611143037137.png" alt="image-20220611143037137.png"></p>
-<p>补充一部分内容：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新博客</span></span><br><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">本地测试</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/06/11/01%20%E5%8F%91%E5%B8%83%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%88%92%E9%80%82%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
