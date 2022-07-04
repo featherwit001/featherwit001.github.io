@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些记录​	C语言自认学得不错，用得很多，前段时间受到B站up主 ‘“冒-_-泡”‘发布的视频【C&#x2F;C++】早期程序员怎么写DEBUG_LOG宏？  的启发，想要补一补之前欠缺的一些知识，于是捡起《C primer plus》这本C语言字典查查单词。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《C Primer Plus》重读记录">
+<meta property="og:url" content="http://example.com/2022/07/04/04-%E3%80%8AC%20Primer%20Plus%E3%80%8B-%E9%87%8D%E8%AF%BB%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="学海注">
+<meta property="og:description" content="一些记录​	C语言自认学得不错，用得很多，前段时间受到B站up主 ‘“冒-_-泡”‘发布的视频【C&#x2F;C++】早期程序员怎么写DEBUG_LOG宏？  的启发，想要补一补之前欠缺的一些知识，于是捡起《C primer plus》这本C语言字典查查单词。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T11:16:23.000Z">
+<meta property="article:modified_time" content="2022-07-04T12:32:15.750Z">
+<meta property="article:author" content="fea01">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="编程语言">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/07/04/04-%E3%80%8AC%20Primer%20Plus%E3%80%8B-%E9%87%8D%E8%AF%BB%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>《C Primer Plus》重读记录 | 学海注</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">学海注</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/04/04-%E3%80%8AC%20Primer%20Plus%E3%80%8B-%E9%87%8D%E8%AF%BB%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fea01">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海注">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《C Primer Plus》重读记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-04 19:16:23 / 修改时间：20:32:15" itemprop="dateCreated datePublished" datetime="2022-07-04T19:16:23+08:00">2022-07-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/books/" itemprop="url" rel="index"><span itemprop="name">books</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h2><p>​	C语言自认学得不错，用得很多，前段时间受到B站up主 ‘“冒-_-泡”‘发布的视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BB4y1v7F8">【C&#x2F;C++】早期程序员怎么写DEBUG_LOG宏？</a>  的启发，想要补一补之前欠缺的一些知识，于是捡起《C primer plus》这本C语言字典查查单词。</p>
+ <span id="more"></span>
+
+<h2 id="第16章-C预处理器和C库"><a href="#第16章-C预处理器和C库" class="headerlink" title="第16章 C预处理器和C库"></a>第16章 C预处理器和C库</h2><p>记一些要点：</p>
+<ol>
+<li><p>C函数 宏 不替换 <code>&quot; &quot;</code>中的部分。 </p>
+</li>
+<li><p>ANSI C 字符串的<code>串联特性</code>  “x” “&#x3D;”  “y” 会被拼接成 “x&#x3D;y”</p>
+</li>
+<li><p>用宏参数创建字符串： <strong><code>#</code>运算符</strong></p>
+<p>为了替换<code>&quot; &quot;</code>中的x ，即将其 字符串化</p>
+<p>#define P(x) printf(“msg “ #x “ is”, ((x)*(x)) ), </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PSQR(x) printf(<span class="string">&quot;The square of &quot;</span> #x <span class="string">&quot; is %d.\n&quot;</span>,((x)*(x)))</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> y = <span class="number">5</span>;</span><br><span class="line">	PSQR(y);</span><br><span class="line">	PSQR(<span class="number">2</span> + <span class="number">4</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The square of y is 25.</span><br><span class="line">The square of 2 + 4 is 36.</span><br></pre></td></tr></table></figure>
+
+<p>调用第1个宏时，用”y”替换#x。调用第2个宏时，用”2 + 4”替换#x。<br>ANSI C字符串的串联特性将这些字符串与printf()语句的其他字符串组合，生<br>成最终的字符串。例如，第1次调用变成：<br>printf(“The square of “ “y” “ is %d.\n”,((y)*(y)));<br>然后，字符串串联功能将这3个相邻的字符串组合成一个字符串：<br>“The square of y is %d.\n”</p>
+</li>
+<li><p>预处理器粘合剂: <strong><code>##</code>运算符</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> xNAME(n) x##n</span></span><br></pre></td></tr></table></figure>
+
+<p>​	xNAME(4) 将转换为 x4</p>
+</li>
+<li><p>变参宏 <code>...</code> 和<code>_ _ VA_ARGS_ _</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// variadic.c -- 变参宏</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PR(X, ...) printf(<span class="string">&quot;Message &quot;</span> #X <span class="string">&quot;: &quot;</span> __VA_ARGS__)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">double</span> x = <span class="number">48</span>;</span><br><span class="line">	<span class="type">double</span> y;</span><br><span class="line">	y = <span class="built_in">sqrt</span>(x);</span><br><span class="line">	PR(<span class="number">1</span>, <span class="string">&quot;x = %g\n&quot;</span>, x);</span><br><span class="line">	PR(<span class="number">2</span>, <span class="string">&quot;x = %.2f, y = %.4f\n&quot;</span>, x, y);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第1个宏调用，X的值是1，所以#X变成”1”。展开后成为：<br>print(“Message “ “1” “: “ “x &#x3D; %g\n”, x);<br>然后，串联4个字符，把调用简化为：<br>print(“Message 1: x &#x3D; %g\n”, x);</p>
+<p>输出结果为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Message 1: x = 48</span><br><span class="line">Message 2: x = 48.00, y = 6.9282</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//记住，省略号只能代替最后的宏参数：</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WRONG(X, ..., Y) #X #_ _VA_ARGS_ _ #y <span class="comment">//不能这样做</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+<li><p><code>#undef</code> 指令</p>
+<p>为了防止出现宏的<strong>不相同的</strong>重定义，在使用前可以使用<code>#undef</code> 撤销<code>#define</code></p>
+</li>
+<li><p><code>#ifdef</code>、<code>#else</code>和<code>#endif</code>指令 用于条件编译</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> MAVIS</span></span><br><span class="line">	<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;horse.h&quot;</span><span class="comment">// 如果已经用#define定义了 MAVIS，则执行下面的指令</span></span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> STABLES 5</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">	<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cow.h&quot;</span>　　　<span class="comment">//如果没有用#define定义 MAVIS，则执行下面的指令</span></span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> STABLES 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>预定义宏</p>
+<table>
+<thead>
+<tr>
+<th align="left">宏</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_ _ DATA _ _</td>
+<td>预处理日期，”Mmm dd yyyy”</td>
+</tr>
+<tr>
+<td align="left">_ _ FILE _ _</td>
+<td>当前源代码文件名的<strong>字符串字面量</strong></td>
+</tr>
+<tr>
+<td align="left">_ _ LINE_ _</td>
+<td>当前源代码文件中行号的<strong>整型常量</strong></td>
+</tr>
+<tr>
+<td align="left">_ _ TIME _ _</td>
+<td>翻译代码的时间 “hh:mm:ss”</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> $ ,</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _STR(a) #a</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> STR(a) _STR(a)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HERE <span class="string">&quot;[File:&quot;</span> __FILE__ <span class="string">&quot;][Line:&quot;</span> STR(__LINE__) <span class="string">&quot;]&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DBG</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> DBG</span></span><br><span class="line"><span class="meta">#	<span class="keyword">define</span> DBGLOG(fmt,a) ((void)printf(HERE <span class="string">&quot; &quot;</span> fmt <span class="string">&quot;\n&quot;</span>, a)</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta"># 	<span class="keyword">define</span> DBGLOG(fmt,a) ((void)0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>printf(…)用void强转表示DBGLOG宏相当于一个void函数,</p>
+<p>完全禁止 DBGLOG作为一个表达式 ,则可以使用<code>do &#123;...&#125; while(0)</code></p>
+<p>多层嵌套的STR宏，是为了正确地将 <code> __LINE__</code>代表的 行数（整型常量） 转化为字符串，而不是将 </p>
+<p><code>__LINE__</code> 转化为字符串。原因是，宏替换是一轮一轮进行的，<code>__LINE__</code> 作为某一个宏的参数，<strong>外层的宏先转换，内层的后转换</strong>。如果 直接 _STR(<code>__LINE__</code>),那么会转成 <code>#__LINE__</code>,下一轮的宏替换，会将其替换成<code>&quot;__LINE__&quot;</code>,预定义宏就失效了</p>
+</li>
+<li><p><code>#pragma</code></p>
+<p>编译指示</p>
+</li>
+<li><p>内联函数 <code>inline</code></p>
+<p>把函数变成内联函数，编译器可能会用内联代码替换函数调用，并（或）执行一些其他的优化，但是也可能不起作用</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">static</span> <span class="type">void</span> <span class="title function_">eatline</span><span class="params">()</span>　<span class="comment">// 内联函数定义/原型</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (getchar() != <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    eatline();　　　　　　<span class="comment">// 函数调用</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第12章-存储类别、链接和内存管理"><a href="#第12章-存储类别、链接和内存管理" class="headerlink" title="第12章 存储类别、链接和内存管理"></a>第12章 存储类别、链接和内存管理</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/04/03-%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA%E3%80%8B-%E8%AF%BB%E5%90%8E%E8%AE%B0%E5%BD%95/" rel="prev" title="《操作系统导论》读后记录">
+      <i class="fa fa-chevron-left"></i> 《操作系统导论》读后记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">一些记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC16%E7%AB%A0-C%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8%E5%92%8CC%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">第16章 C预处理器和C库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC12%E7%AB%A0-%E5%AD%98%E5%82%A8%E7%B1%BB%E5%88%AB%E3%80%81%E9%93%BE%E6%8E%A5%E5%92%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">第12章 存储类别、链接和内存管理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">fea01</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fea01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
