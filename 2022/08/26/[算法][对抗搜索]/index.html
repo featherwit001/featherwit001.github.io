@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="参考资料【算法】写个黑白棋AI - 对抗搜索的一般实现方式 极大极小搜索算法 minimax search 【算法】电子生物工程？- 五子棋AI的局面评估 【算法】后宫三千如何友好相处？- N皇后排布问题 : 状态空间 与 状态迁移， 评估函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[算法][对抗搜索]">
+<meta property="og:url" content="http://example.com/2022/08/26/[%E7%AE%97%E6%B3%95][%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2]/index.html">
+<meta property="og:site_name" content="学海注">
+<meta property="og:description" content="参考资料【算法】写个黑白棋AI - 对抗搜索的一般实现方式 极大极小搜索算法 minimax search 【算法】电子生物工程？- 五子棋AI的局面评估 【算法】后宫三千如何友好相处？- N皇后排布问题 : 状态空间 与 状态迁移， 评估函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826214942192.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826215133166.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826215421170.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826222404435.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826225633222.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826235422707.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826235807535.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827000038982.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827001251644.png">
+<meta property="og:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827001343855.png">
+<meta property="article:published_time" content="2022-08-26T13:46:15.000Z">
+<meta property="article:modified_time" content="2022-08-26T16:18:28.891Z">
+<meta property="article:author" content="fea01">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826214942192.png">
+
+<link rel="canonical" href="http://example.com/2022/08/26/[%E7%AE%97%E6%B3%95][%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2]/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>[算法][对抗搜索] | 学海注</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">学海注</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/26/[%E7%AE%97%E6%B3%95][%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2]/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fea01">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海注">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [算法][对抗搜索]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-26 21:46:15" itemprop="dateCreated datePublished" datetime="2022-08-26T21:46:15+08:00">2022-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-27 00:18:28" itemprop="dateModified" datetime="2022-08-27T00:18:28+08:00">2022-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ed4y1d7k7">【算法】写个黑白棋AI - 对抗搜索的一般实现方式</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/thormas1996/article/details/102662222">极大极小搜索算法 minimax search</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jt4y1E73s">【算法】电子生物工程？- 五子棋AI的局面评估</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Se4y1f7HT">【算法】后宫三千如何友好相处？- N皇后排布问题</a> : 状态空间 与 状态迁移， 评估函数</p>
+<span id="more"></span>
+
+<h2 id="前提假设"><a href="#前提假设" class="headerlink" title="前提假设"></a>前提假设</h2><p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826214942192.png" alt="image-20220826214942192"></p>
+<p>博弈树： 在当前局面下，后续n个回合行动后，所有的可能的局面。(结构如下图)</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826215133166.png" alt="image-20220826215133166"></p>
+<p>重要概念: <strong>min-max 搜索</strong> 与 <strong>局面评估</strong>。</p>
+<p>默认具有良好的评估函数，将局面根据对自己的有利程度评分，越高越有利。</p>
+<p>由于是回合制行动，一般评估<strong>双数步后的局面</strong>。在博弈树中，评估叶子节点表示的局面而不是非叶子节点。</p>
+<h2 id="min-max-搜索"><a href="#min-max-搜索" class="headerlink" title="min-max 搜索"></a>min-max 搜索</h2><p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826215421170.png" alt="image-20220826215421170"></p>
+<p>min-max 的含义： 将博弈树 以奇偶层数分为MAX层和MIN层。</p>
+<p>MAX层的节点表示，这一层的所有节点(局面)可以由我方行动，可以选择最有利于我方的局面，局面评估分数尽可能高。</p>
+<p>同理，MIN层节点，由对方行动，选择最有利于对方的局面，即最不利于我方的局面，局面评估分数尽可能低。</p>
+<p>最后选择最保守的行动路线。</p>
+<p>取胜的关键，就是局面评估和搜索深度。</p>
+<p>局面评估函数越优秀，那么基于此函数的判断会更准确。</p>
+<p>搜索得越深，看得步数越远，掌握的信息越多，越有可能获胜。看2步后和看8步后，显然是后者更可能获胜。</p>
+<p>以上图为例，<strong>评估偶数步后叶子节点的局面得到分数</strong>。</p>
+<p>MIN层（第二层），对方行动，要最不利我方，所以:</p>
+<p>​			 <code>节点B</code>选择 子节点中 分数最低的 3，走<code>b1</code>步。而不是走<code>b2</code>，给我方放水;</p>
+<p>​		     <code>节点C</code> 选择 分数 2 而不是6; <code>节点D</code>选择2, 而不是14</p>
+<p>MAX层(第一层)， 我方心动，从<code>节点BCD</code>中选择最有利于我方的局面，分数3，走<code>a1</code>步。</p>
+<p>如果看到更远，比如看到第四层，发现走<code>a1</code>步，会导致失败。走<code>a2 </code>局面分数会更高。也可是说明搜索深度越深，越有可能取胜。</p>
+<h2 id="αβ剪枝-优化方法"><a href="#αβ剪枝-优化方法" class="headerlink" title="αβ剪枝 - 优化方法"></a>αβ剪枝 - 优化方法</h2><p>为了取胜，在同计算量下，怎样获得更深的搜索深度呢？采用αβ剪枝。</p>
+<p>基本原理是：参考已经搜索到的分支的信息，减少不必要的搜索分支。</p>
+<p>根据遍历顺序分为left-to-right和right-to-left两种，前者从左边开始遍历，后者从右边开始遍历，(差别不大不太重要）</p>
+<p>一些学术化的表述，熟悉之后直接看这个：</p>
+<p>对于每个max节点设置一个目前已知下界alpha，每个min节点设置一个目前已知上界beta。</p>
+<p>但发生下面两种情况时可以剪枝，即停止搜索该节点的其余子节点：<br>1）当计算一个min结点时，如果它的beta值小于等于其父结点的alpha值，则可以立即停止此结点的计算（alpha剪枝）。<br>2）当计算一个max结点时，如果它的alpha结点大于等于其父结点的beta值，也可以立即停止此结点的计算（beta剪枝）。</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826222404435.png" alt="image-20220826222404435"></p>
+<p>例子1，如上图。</p>
+<p>过程(a)，(b)，(c) 和 普通的DFS是一样的,稍有不同的是信息更新。</p>
+<p>过程(a)中，对于根节点(MAX层节点)，先搜索最左边的分支，到<code>节点B</code>。对于<code>节点B</code>（MIN 层节点），搜索完最左边的分支后，得到分数3，则更新 β值为3，这是敌方能接受的最坏的局面，可接受的评估数值的上界。</p>
+<p>过程(b), (c)  ，将<code>节点B</code>下所有可能搜索完毕，可以确定MIN层<code>节点B</code>的值为 3，那么对于MAX层<code>节点A</code>,有了一个可选的值3，那么对于我方，更新α值，为3。表示，我方最差最差也有3分的局面可选，不会选择更差的局面了，即可接受的下界。</p>
+<p>进入过程(d),也是先DFS，发现了一个可选的局面2，MIN层<code>节点C</code>,更新β值为2,。此时需要考虑一下了。对于当前局面(根节点)，<strong>已经有分值3的局面可选了，<code>节点C</code> 最高也只有2，那么可以剪除剩余的分支</strong>，不搜索。</p>
+<p>进入过程(e), 剪除了<code>节点C</code> 的剩余分支后，<code>节点C</code>搜索完毕，进入<code>节点D</code>搜索，依旧是普通的DFS。发现14，更新<code>节点D</code>的β值为14，大于<code>节点A</code>的α值3，<code>节点A</code>的可以达到的局面分数范围为[3,14]，接着在<code>节点D</code>下搜索。</p>
+<p>过程(f)，完成<code>节点D</code>的所有局面搜索，过程中，不断更新<code>节点D</code>的β值，直到最后一种可能的局面搜索完才发现<code>节点D</code> 的 β值小于 <code>根节点A</code>的 α值,那么 对于当前局面根节点A，在两步之后的最优局面 分数评估为 3。</p>
+<p> 例子中解释了剪枝规则1) 计算min节点时的判断。</p>
+<p>​				对于剪枝规则2),计算max节点时，</p>
+<p>​						如例子还有没有展示的更深层节点，对于过程(b)中，<code>节点B</code>下评分为12的子节点, </p>
+<p>​						如果 其α值更新为12之后，发现自己的α值大于父节点的β值，</p>
+<p>​						那么敌方肯定不会选择走到节点，放弃该节点下剩余其他可能的搜索是合理的。</p>
+<p>例子2：</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826225633222.png" alt="image-20220826225633222"></p>
+<p> 根据剪枝规则，例子2的剪枝是很容易理解的。先DFS，最左侧的叶子结点都搜完之后，评估所有已知局面，往上更新上层节点的α和β值。之后接着DFS，使用αβ剪枝。</p>
+<h2 id="局面评估"><a href="#局面评估" class="headerlink" title="局面评估"></a>局面评估</h2><p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826235422707.png" alt="image-20220826235422707"></p>
+<p>局面评估是棋类AI的核心，min-max搜索和αβ剪枝 是 搜索框架 两者结合才是一个合格的AI</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220826235807535.png" alt="image-20220826235807535"></p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827000038982.png" alt="image-20220827000038982"></p>
+<p>​	建模：采用的特征是，一定长度直线的棋子排布。最后对于所有个特征进行一个线性相加。</p>
+<p>一个棋类AI的功能是 给一个局面，返回一个下一步趋向获胜的行为。</p>
+<p>有了博弈树和min-max搜索(αβ剪枝)将这个问题转化为-局面评估问题。</p>
+<p>通过建模，将局面评估转化为 权重的计算问题。 </p>
+<p>权重其实就是一组向量，有一定的取值范围，定义了一个状态空间。其中每个状态有好有差。 这个与N皇后问题，启发式算法（爬山算法，退火算法）有关。</p>
+<p>可以使用练蛊的方法（随机获得多组值，两两PK循环赛,取前几名，再随机获得多组值，再PK)</p>
+<p>也可以使用遗传算法，通过遗传(集中已有的优势基因)和变异(突破当前所有存在基因的上限) ，获得比较强势的一组值。</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827001251644.png" alt="image-20220827001251644"></p>
+<p>局限性，1. 建模并没有充分考虑多条线之间的影响。</p>
+<p>​				2. 搜索深度不足。</p>
+<p>棋谱学习: <strong>权重表的拟合</strong>，给棋谱，调整权重表，是的下一步的结果符合棋谱的设定。当误差率低到一定程度，那么这个AI就接近人脑。</p>
+<p><img src="/2022/08/26/%5B%E7%AE%97%E6%B3%95%5D%5B%E5%AF%B9%E6%8A%97%E6%90%9C%E7%B4%A2%5D/image-20220827001343855.png" alt="image-20220827001343855"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/17/%5B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97%5D%5B2022.8.17%5D/" rel="prev" title="[工作日志][2022.8.17][暑期实习/游泳]">
+      <i class="fa fa-chevron-left"></i> [工作日志][2022.8.17][暑期实习/游泳]
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E5%81%87%E8%AE%BE"><span class="nav-number">2.</span> <span class="nav-text">前提假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#min-max-%E6%90%9C%E7%B4%A2"><span class="nav-number">3.</span> <span class="nav-text">min-max 搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%CE%B1%CE%B2%E5%89%AA%E6%9E%9D-%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">αβ剪枝 - 优化方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%9D%A2%E8%AF%84%E4%BC%B0"><span class="nav-number">5.</span> <span class="nav-text">局面评估</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">fea01</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fea01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
