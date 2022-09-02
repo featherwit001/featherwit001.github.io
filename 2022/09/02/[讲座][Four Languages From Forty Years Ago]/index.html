@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="参考资料[银河脑暴] Galaxy Brain 编程秘史 ——B站up主 清华邓博士 Four Languages From Forty Years Ago——Scott Wlaschin 启发的原因​	在计算机发展历史中，出现过很多的编程语言，新奇的思想层出不穷。语言能够改变人的思维方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Four Languages From Forty Years Ago">
+<meta property="og:url" content="http://example.com/2022/09/02/[%E8%AE%B2%E5%BA%A7][Four%20Languages%20From%20Forty%20Years%20Ago]/index.html">
+<meta property="og:site_name" content="学海注">
+<meta property="og:description" content="参考资料[银河脑暴] Galaxy Brain 编程秘史 ——B站up主 清华邓博士 Four Languages From Forty Years Ago——Scott Wlaschin 启发的原因​	在计算机发展历史中，出现过很多的编程语言，新奇的思想层出不穷。语言能够改变人的思维方式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085417587.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902090544611.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085718191.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085853147.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085800745.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902090843638.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902091606521.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902091938630.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092141250.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092358590.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092458529.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092702254.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092836697.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093217613.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093249611.png">
+<meta property="og:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093450745.png">
+<meta property="article:published_time" content="2022-09-02T00:42:02.000Z">
+<meta property="article:modified_time" content="2022-09-02T01:35:50.744Z">
+<meta property="article:author" content="fea01">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="编程语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085417587.png">
+
+<link rel="canonical" href="http://example.com/2022/09/02/[%E8%AE%B2%E5%BA%A7][Four%20Languages%20From%20Forty%20Years%20Ago]/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Four Languages From Forty Years Ago | 学海注</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">学海注</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/02/[%E8%AE%B2%E5%BA%A7][Four%20Languages%20From%20Forty%20Years%20Ago]/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fea01">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海注">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Four Languages From Forty Years Ago
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-02 08:42:02 / 修改时间：09:35:50" itemprop="dateCreated datePublished" datetime="2022-09-02T08:42:02+08:00">2022-09-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/inspired/" itemprop="url" rel="index"><span itemprop="name">inspired</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YD4y1B7NC">[银河脑暴] Galaxy Brain 编程秘史</a> ——B站up主 清华邓博士</p>
+<p><a target="_blank" rel="noopener" href="https://fsharpforfunandprofit.com/fourfromforty/">Four Languages From Forty Years Ago</a>——Scott Wlaschin</p>
+<h2 id="启发的原因"><a href="#启发的原因" class="headerlink" title="启发的原因"></a>启发的原因</h2><p>​	在计算机发展历史中，出现过很多的编程语言，新奇的思想层出不穷。语言能够改变人的思维方式。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085417587.png" alt="image-20220902085417587"></p>
+<span id="more"></span>
+
+<h2 id="重点摘要"><a href="#重点摘要" class="headerlink" title="重点摘要"></a>重点摘要</h2><p>整个演讲的结构:</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902090544611.png" alt="image-20220902090544611"></p>
+<p>首先, 总览了编程语言发展史，从1960s至1980年之间，各种新奇的语言层出不穷。重要的编程范式在1980s逐渐稳定，如下图总结：</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085718191.png" alt="image-20220902085718191"></p>
+<p>一个暴论：我们一直在用一种工具去做所有的事情，当下熟知的编程语言本质都是一种语言。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085853147.png" alt="image-20220902085853147"></p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902085800745.png" alt="image-20220902085800745"></p>
+<p>评价：有可能出于老年人的怀旧心理，但是在上述提到的语言中一通百通是事实，建立的编程模型确实非常相似。一方面，说明这种模型足够优秀，另一方面，也说明当前的通用模型不能满足编程需求了。崇古贬今不可取，但是认为今人胜古人倒也不必，思想应该兼收并蓄。</p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902090843638.png" alt="image-20220902090843638"></p>
+<p>一致性的模型，基于表达式，注重做什么而不是怎么做，分割关注点，交互性。</p>
+<p>一致模型是良好的编程语言的基础。SQL认为所有东西都是关系集合</p>
+<p>基于表达式可以做到嵌套，想搭积木一样构筑整个项目，也容易减少bug。</p>
+<p>注重做什么，而不是怎么做，将底层实现与上层逻辑分隔开来，更加直观，健壮。</p>
+<p>分隔重点，SQL的查询，数据操作，创建表都是不同的部分，同样可以做到清晰明了。</p>
+<p>交互性，例如：jupyter（python），可以直接获得结果，而不需要通过编译等无关过程。</p>
+<h3 id="Prolog"><a href="#Prolog" class="headerlink" title="Prolog"></a>Prolog</h3><p>第一种逻辑编程语言。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902091606521.png" alt="image-20220902091606521"></p>
+<p>一致模型：所有东西要么是事实要么是规则。具有可预测性。</p>
+<p>陈述性的：描述做什么，而不是怎么做</p>
+<p>统一性的，可判断，可作答。</p>
+<p>交互性：同上</p>
+<h3 id="ML"><a href="#ML" class="headerlink" title="ML"></a>ML</h3><p>收获最多的部分，因为最近在学习Rust。ML则是函数式编程的鼻祖，Ocaml(Rust 诞生的源头之一) 深受其启发。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902091938630.png" alt="image-20220902091938630"></p>
+<p>基于表达式</p>
+<p>类型推断</p>
+<p>一些默认的设定: 重要需要扩展</p>
+<p>参数多态</p>
+<p>代数类型系统：重要需要扩展</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092141250.png" alt="image-20220902092141250"></p>
+<p>一些默认设定: 不变性，没有null，强制初始化，结构相等（没有懂）</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092358590.png" alt="image-20220902092358590"></p>
+<p>最重要的一点：<del>代数</del>组合类型系统</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092458529.png" alt="image-20220902092458529"></p>
+<p>在Rust中以 sturct 和 enum 为代表。 前者为AND，或者为OR。在构建新类型时十分强大而有力。</p>
+<h3 id="Smalltalk"><a href="#Smalltalk" class="headerlink" title="Smalltalk"></a>Smalltalk</h3><p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092702254.png" alt="image-20220902092702254"></p>
+<p>许多东西都是首创：OOP，IDE，VM，GC等等</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902092836697.png" alt="image-20220902092836697"></p>
+<p>一致性模型，最小化语法增强语言的表达能力，以及足够迷人。</p>
+<p>之后，有机会可以尝试smalltalk，也许永远没有机会。</p>
+<h3 id="VisiCalc"><a href="#VisiCalc" class="headerlink" title="VisiCalc"></a>VisiCalc</h3><p>类似于excel的东西。或者说excel模仿了visicalc。但是我却是第一次知道这个语言。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093217613.png" alt="image-20220902093217613"></p>
+<p>集上述语言之长，满足了非专业人士的编程序需要。</p>
+<p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093249611.png" alt="image-20220902093249611"></p>
+<p>专用编程语言比通用语言更加有用，使用合适的工作做工作。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/2022/09/02/%5B%E8%AE%B2%E5%BA%A7%5D%5BFour%20Languages%20From%20Forty%20Years%20Ago%5D/image-20220902093450745.png" alt="image-20220902093450745"></p>
+<p>扩展视野，增加可用的工具集，不要局限在C风格的编程语言之中。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/27/%5B%E9%98%85%E8%AF%BB%5D%5B6%5D%E3%80%8A%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA%E5%AF%BC%E5%BC%95%E3%80%8B/" rel="prev" title="《计算理论导引》-学习记录">
+      <i class="fa fa-chevron-left"></i> 《计算理论导引》-学习记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8F%91%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">启发的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E7%82%B9%E6%91%98%E8%A6%81"><span class="nav-number">3.</span> <span class="nav-text">重点摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">3.1.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prolog"><span class="nav-number">3.2.</span> <span class="nav-text">Prolog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ML"><span class="nav-number">3.3.</span> <span class="nav-text">ML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smalltalk"><span class="nav-number">3.4.</span> <span class="nav-text">Smalltalk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VisiCalc"><span class="nav-number">3.5.</span> <span class="nav-text">VisiCalc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">fea01</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fea01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
