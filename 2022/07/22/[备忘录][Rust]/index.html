@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2022/07/22/%5B%E5%A4%87%E5%BF%98%E5%BD%95%5D%5BRust%5D/image-20220807185618825.png">
 <meta property="og:image" content="http://example.com/2022/07/22/%5B%E5%A4%87%E5%BF%98%E5%BD%95%5D%5BRust%5D/image-20220815151144403.png">
 <meta property="article:published_time" content="2022-07-22T02:45:34.000Z">
-<meta property="article:modified_time" content="2022-08-15T09:08:57.601Z">
+<meta property="article:modified_time" content="2022-09-08T13:47:02.594Z">
 <meta property="article:author" content="fea01">
 <meta property="article:tag" content="学习记录">
 <meta name="twitter:card" content="summary">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-15 17:08:57" itemprop="dateModified" datetime="2022-08-15T17:08:57+08:00">2022-08-15</time>
+                <time title="修改时间：2022-09-08 21:47:02" itemprop="dateModified" datetime="2022-09-08T21:47:02+08:00">2022-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -750,10 +750,13 @@
 
 <p>近来继承作为一种语言设计的解决方案在很多语言中失宠了，因为其时常带有共享多于所需的代码的风险。</p>
 <p>Rust 则通过<strong>泛型</strong>来对不同的可能类型进行抽象，并通过 <strong>trait bounds</strong> 对这些类型所必须提供的内容施加约束。</p>
-<p><strong>trait 对象</strong>指向一个实现了我们指定 trait 的类型的实例，以及一个用于在运行时查找该类型的trait方法的表。</p>
+<hr>
+<p><strong>trait 对象指向一个实现了我们指定 trait 的类型的实例，以及一个用于在运行时查找该类型的trait方法的表。</strong></p>
 <p>我们通过指定某种指针来创建 trait 对象，例如 <code>&amp;</code> 引用或 <code>Box&lt;T&gt;</code> 智能指针，还有 <code>dyn</code> keyword， 以及指定相关的 trait</p>
 <p>我们可以使用 trait 对象代替泛型或具体类型。任何使用 trait 对象的位置，Rust 的类型系统会在编译时确保任何在此上下文中使用的值会实现其 trait 对象的 trait。</p>
+<hr>
 <p>这与定义使用了带有 trait bound 的泛型类型参数的结构体不同。泛型类型参数一次只能替代一个具体类型，而 trait 对象则允许在运行时替代多种具体类型。</p>
+<p>这个 vector 的类型是 <code>Box&lt;dyn Draw&gt;</code>，此为一个 trait 对象：它是 <code>Box</code> 中任何实现了 <code>Draw</code> trait 的类型的替身。</p>
 <p>如果只需要同质（相同类型）集合，则倾向于使用泛型和 trait bound，因为其定义会在编译时采用具体类型进行单态化。</p>
 <p>通过使用 trait 对象的方法，一个 <code>Screen</code> 实例可以存放一个既能包含 <code>Box&lt;Button&gt;</code>，也能包含 <code>Box&lt;TextField&gt;</code> 的 <code>Vec&lt;T&gt;</code></p>
 <p>单态化所产生的代码进行 <strong>静态分发</strong>（<em>static dispatch</em>）。静态分发发生于编译器在编译时就知晓调用了什么方法的时候。</p>
@@ -1213,20 +1216,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
