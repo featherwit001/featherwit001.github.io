@@ -20,19 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="来源​	sicp，计算机程序构造与解释，经典编程入门教材，以Lisp方言为教学语言。在csdiy中知道有这么一门课程——cs61a,使用python作为教学语言。在搜索中发现有一个up爱扑bug的熊, 整理并上传了英文资料中文授课的cs61a改(课程主页)。 重要链接： Composing Programs pythontutor sicp特供版">
+  <meta name="description" content="来源​	sicp，计算机程序构造与解释，经典编程入门教材，以Lisp方言为教学语言。在csdiy中知道有这么一门课程——cs61a,使用python作为教学语言。在搜索中发现有一个up爱扑bug的熊, 整理并上传了英文资料中文授课的cs61a改(课程主页)。 重要链接： Composing Programs pythontutor sicp特供版  2022.10.11 完成课程内容的一半">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs61a改:sicp 学习记录">
 <meta property="og:url" content="http://example.com/2022/10/10/[%E8%AF%BE%E7%A8%8B][cs61a%E6%94%B9%EF%BC%9Asicp]/index.html">
 <meta property="og:site_name" content="学海注">
-<meta property="og:description" content="来源​	sicp，计算机程序构造与解释，经典编程入门教材，以Lisp方言为教学语言。在csdiy中知道有这么一门课程——cs61a,使用python作为教学语言。在搜索中发现有一个up爱扑bug的熊, 整理并上传了英文资料中文授课的cs61a改(课程主页)。 重要链接： Composing Programs pythontutor sicp特供版">
+<meta property="og:description" content="来源​	sicp，计算机程序构造与解释，经典编程入门教材，以Lisp方言为教学语言。在csdiy中知道有这么一门课程——cs61a,使用python作为教学语言。在搜索中发现有一个up爱扑bug的熊, 整理并上传了英文资料中文授课的cs61a改(课程主页)。 重要链接： Composing Programs pythontutor sicp特供版  2022.10.11 完成课程内容的一半">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/9sP6fzZ4WuajAOF.png">
 <meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010120612772.png">
 <meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010121425962.png">
 <meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010122830607.png">
+<meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010232339204.png">
+<meta property="og:image" content="http://example.com/image-20221010233024211.png">
+<meta property="og:image" content="http://example.com/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010232150240.png">
 <meta property="article:published_time" content="2022-10-10T03:46:24.000Z">
-<meta property="article:modified_time" content="2022-10-10T04:35:37.855Z">
+<meta property="article:modified_time" content="2022-10-12T10:06:39.117Z">
 <meta property="article:author" content="fea01">
 <meta property="article:tag" content="学习记录">
 <meta name="twitter:card" content="summary">
@@ -188,10 +191,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-10-10 11:46:24 / 修改时间：12:35:37" itemprop="dateCreated datePublished" datetime="2022-10-10T11:46:24+08:00">2022-10-10</time>
+              <time title="创建时间：2022-10-10 11:46:24" itemprop="dateCreated datePublished" datetime="2022-10-10T11:46:24+08:00">2022-10-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-12 18:06:39" itemprop="dateModified" datetime="2022-10-12T18:06:39+08:00">2022-10-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -218,11 +227,13 @@
 <p><a target="_blank" rel="noopener" href="https://composingprograms.com/">Composing Programs</a></p>
 <p><a target="_blank" rel="noopener" href="https://pythontutor.com/cp/composingprograms.html#mode=edit">pythontutor sicp特供版</a></p>
 <p><img src="/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/9sP6fzZ4WuajAOF.png"></p>
+<p>2022.10.11 完成课程内容的一半</p>
 <span id="more"></span>
 
 <h2 id="要点难点记录"><a href="#要点难点记录" class="headerlink" title="要点难点记录"></a>要点难点记录</h2><p>​		虽然已经不是初学的菜鸟，但是这门课程的内容和配套的labs，homework和projects总能给我带来新的东西。做完递归，发现此前有很多东西可以记录一下，以供后续使用。</p>
 <h3 id="抽象-Absraction"><a href="#抽象-Absraction" class="headerlink" title="抽象 Absraction"></a>抽象 Absraction</h3><p>​	没有什么问题是不能通过添加一层抽象解决的。</p>
-<h3 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h3><p>​	必须有具体的名字(name)才能被显示调用。</p>
+<h3 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h3><p>​	第一个抽象</p>
+<p>​	必须有具体的名字(name)才能被显示调用。</p>
 <p>​	(匿名递归不需要暴露名字给外接，但是内部也需要一个具体的名字指称) </p>
 <h3 id="表达式计算顺序"><a href="#表达式计算顺序" class="headerlink" title="表达式计算顺序"></a>表达式计算顺序</h3><p><img src="/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010120612772.png" alt="image-20221010120612772"></p>
 <p>​	操作符(operator) 和 操作数(operand) 都可能是 表达式，从左至右以此计算(evaluate)。</p>
@@ -235,6 +246,21 @@
 <p>Name 查找从local frame开始，向父环境依次往上查找，选择最接近的一个。</p>
 <h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><p>将函数作为参数，将函数作为返回值的函数，是函数式编程的根基</p>
 <p>重点在于demo和pythontutor的演示</p>
+<h4 id="自引用"><a href="#自引用" class="headerlink" title="自引用"></a>自引用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_sum</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt;print_sum(1)(3)(5)</span></span><br><span class="line"><span class="string">    1</span></span><br><span class="line"><span class="string">    4</span></span><br><span class="line"><span class="string">    9</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(n)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">next_sum</span>(<span class="params">k</span>):</span><br><span class="line">        <span class="keyword">return</span> print_sum(n +k)</span><br><span class="line">   	<span class="keyword">return</span> next_sum</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="函数柯里化-currying"><a href="#函数柯里化-currying" class="headerlink" title="函数柯里化(currying)"></a>函数柯里化(currying)</h4><p>将多个参数的函数转化为多个单参数函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>make_adder_adder(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x, y, z</span>)</span><br><span class="line">	<span class="keyword">return</span> x + y + z</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_adder_adder</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">make_adder</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">adder</span>(<span class="params">z</span>):</span><br><span class="line">            <span class="keyword">return</span> x + y + z</span><br><span class="line">       	<span class="keyword">return</span> adder</span><br><span class="line">   	<span class="keyword">return</span> make_adder</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
 <h3 id="软工常识"><a href="#软工常识" class="headerlink" title="软工常识"></a>软工常识</h3><p>​	TDD：先写测试，在写函数体</p>
 <p>​	代码清晰易懂 &gt; 代码短效率高</p>
 <h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p><img src="/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010122830607.png" alt="image-20221010122830607"></p>
@@ -242,9 +268,20 @@
 <p>​	递归的难点在于，寻找问题结构的相似之处 和 写代码时存在很多未知情况。</p>
 <p>​	前者可以通过迭代解法找循环不变式发现，也可以通过对比大规模和小规模情况下的输出发现。</p>
 <p>​	后者，我们可以抽象出一个函数，假设这个函数解决了这个部分的未知，使用这个函数继续描述问题解法，之后再完善抽象出的函数。</p>
+<p>递归也可以多次调用自己，或者互相调用</p>
 <p>几个经典问题：</p>
 <p>汉诺塔、数字拆分</p>
 <p>在homework2中，使用匿名函数完成递归</p>
+<h3 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h3><p><img src="/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010232339204.png" alt="image-20221010232339204"></p>
+<p>数据抽象:将数据的表示与数据的操作分隔开来。</p>
+<p>有点像ADT(抽象数据类型)，但是此时类型并未现身，仅仅是数据表示和操作。</p>
+<p>关键点有两个, constructor 和selector （这两个词的中文翻译有点词不达意，直接用英文，之前做OS实验《一个操作系统的实现》导致对选择子过敏）</p>
+<p>demo如下：</p>
+<p><img src="/image-20221010233024211.png" alt="image-20221010233024211"></p>
+<p>constructor 构造一个存储数据的结构（list，structure，hof都可以）</p>
+<p>selector 将存储数据的结构中各个部分取出</p>
+<p><img src="/2022/10/10/%5B%E8%AF%BE%E7%A8%8B%5D%5Bcs61a%E6%94%B9%EF%BC%9Asicp%5D/image-20221010232150240.png" alt="image-20221010232150240"></p>
+<p>上游和下游在不改变层际的接口时，互不影响。</p>
 
     </div>
 
@@ -266,7 +303,10 @@
     <a href="/2022/10/04/%5B%E9%98%85%E8%AF%BB%5D%5Btodo%5Dbooks/" rel="prev" title="to do books">
       <i class="fa fa-chevron-left"></i> to do books
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/24/%5B%E6%96%87%E5%A8%B1%5D%5B%E7%94%B5%E5%BD%B1%5D/" rel="next" title="文娱电影">
+      文娱电影 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -325,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A5%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E7%82%B9%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">要点难点记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1-Absraction"><span class="nav-number">2.1.</span> <span class="nav-text">抽象 Absraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Name"><span class="nav-number">2.2.</span> <span class="nav-text">Name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">表达式计算顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%EF%BC%8C%E7%89%B9%E6%8C%87frame"><span class="nav-number">2.4.</span> <span class="nav-text">环境，特指frame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E5%B7%A5%E5%B8%B8%E8%AF%86"><span class="nav-number">2.6.</span> <span class="nav-text">软工常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">2.7.</span> <span class="nav-text">递归</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A5%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E7%82%B9%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">要点难点记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1-Absraction"><span class="nav-number">2.1.</span> <span class="nav-text">抽象 Absraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Name"><span class="nav-number">2.2.</span> <span class="nav-text">Name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">表达式计算顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%EF%BC%8C%E7%89%B9%E6%8C%87frame"><span class="nav-number">2.4.</span> <span class="nav-text">环境，特指frame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%BC%95%E7%94%A8"><span class="nav-number">2.5.1.</span> <span class="nav-text">自引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96-currying"><span class="nav-number">2.5.2.</span> <span class="nav-text">函数柯里化(currying)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E5%B7%A5%E5%B8%B8%E8%AF%86"><span class="nav-number">2.6.</span> <span class="nav-text">软工常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">2.7.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1"><span class="nav-number">2.8.</span> <span class="nav-text">数据抽象</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -339,20 +379,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
