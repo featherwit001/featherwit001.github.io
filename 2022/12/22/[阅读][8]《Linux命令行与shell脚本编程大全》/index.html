@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="缘起​	室友在某次项目中海量的机械重复操作，使我意识到使用脚本自动化处理能够节省多少的时间。这本书一看就很厚实，但是参考机械重复操作耗费的时间，这点前期投入不值一提。 ​	在这里记录一些自己不太熟悉的内容，当做备忘录查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux命令行与shell脚本编程大全">
+<meta property="og:url" content="http://example.com/2022/12/22/[%E9%98%85%E8%AF%BB][8]%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/index.html">
+<meta property="og:site_name" content="学海注">
+<meta property="og:description" content="缘起​	室友在某次项目中海量的机械重复操作，使我意识到使用脚本自动化处理能够节省多少的时间。这本书一看就很厚实，但是参考机械重复操作耗费的时间，这点前期投入不值一提。 ​	在这里记录一些自己不太熟悉的内容，当做备忘录查询">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/s29584559.jpg">
+<meta property="og:image" content="http://example.com/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222211243363.png">
+<meta property="og:image" content="http://example.com/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222224248450.png">
+<meta property="og:image" content="http://example.com/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222230009221.png">
+<meta property="article:published_time" content="2022-12-22T03:05:32.000Z">
+<meta property="article:modified_time" content="2022-12-22T15:30:21.629Z">
+<meta property="article:author" content="fea01">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/s29584559.jpg">
+
+<link rel="canonical" href="http://example.com/2022/12/22/[%E9%98%85%E8%AF%BB][8]%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux命令行与shell脚本编程大全 | 学海注</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">学海注</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/[%E9%98%85%E8%AF%BB][8]%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fea01">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海注">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux命令行与shell脚本编程大全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-22 11:05:32 / 修改时间：23:30:21" itemprop="dateCreated datePublished" datetime="2022-12-22T11:05:32+08:00">2022-12-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/books/" itemprop="url" rel="index"><span itemprop="name">books</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h1><p>​	室友在某次项目中海量的机械重复操作，使我意识到使用脚本自动化处理能够节省多少的时间。这本书一看就很厚实，但是参考机械重复操作耗费的时间，这点前期投入不值一提。</p>
+<p>​	在这里记录一些自己不太熟悉的内容，当做备忘录查询</p>
+<p><img src="/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/s29584559.jpg"></p>
+<span id="more"></span>
+
+
+
+<h1 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h1><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>​	Ubuntu 使用的是GNOME Terminal 仿真器，几个能够提高效率的快捷键。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动终端</td>
+<td>Ctrl + Alt + T</td>
+<td>Ubuntu Unity 桌面环境中  快速访问GNOME终端</td>
+</tr>
+<tr>
+<td>Open Terminal</td>
+<td>Shift+Ctrl+N</td>
+<td>在新的GNOME Terminal窗口中启动一个新的shell会话</td>
+</tr>
+<tr>
+<td>Open Tab</td>
+<td>Shift+Ctrl+T</td>
+<td>在现有的GNOME Terminal窗口的新标签中启动一个新的shell会话</td>
+</tr>
+<tr>
+<td>Close Tab</td>
+<td>Shift+Ctrl+W</td>
+<td>关闭当前标签中的会话</td>
+</tr>
+<tr>
+<td>Close Window</td>
+<td>Shift+Ctrl+Q</td>
+<td>关闭当前的GNOME Terminal会话</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Copy</td>
+<td>Shift+Ctrl+C</td>
+<td>将所选的文本复制到GNOME的剪贴板中</td>
+</tr>
+<tr>
+<td>Paste</td>
+<td>Shift+Ctrl+V</td>
+<td>将GNOME剪贴板中的文本粘贴到会话中</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Zoom In</td>
+<td>Ctrl++</td>
+<td>逐步增大窗口显示字号</td>
+</tr>
+<tr>
+<td>Zoom Out</td>
+<td>Ctrl+-</td>
+<td>逐步减小窗口显示字号</td>
+</tr>
+<tr>
+<td>Normal Size</td>
+<td>Ctrl+0</td>
+<td>恢复默认字号</td>
+</tr>
+</tbody></table>
+<p>​	</p>
+<h2 id="第三章-基本bash-shell-命令"><a href="#第三章-基本bash-shell-命令" class="headerlink" title="第三章 基本bash shell 命令"></a>第三章 基本bash shell 命令</h2><p>​		Linux会在根驱动器上创建一些特别的目录，我们称之为挂载点（mount point）。</p>
+<p>​		挂载点是虚拟目录中用于分配额外存储设备的目录。虚拟目录会让文件和目录出现在这些挂载点目录中，然而实际上它们却存储在另外一个驱动器中。</p>
+<p>ls -l（long 长列表） -F (斜杠区分目录) -R (递归显示)</p>
+<p>可以加模式匹配</p>
+<p>​		ls -l my_scr?pt</p>
+<p>​		ls -l my_s*t</p>
+<p>防止文件被覆盖，最好加-i ，交互在覆盖前确认</p>
+<p>mv -i</p>
+<p>cp -i</p>
+<p>链接文件</p>
+<p>ln -s <src> <dst></p>
+<p>ln <src> <dst></p>
+<p>rmdir 只能删除空目录</p>
+<p>rm -r 递归删除 -f 强制删除不询问 -i 删除前确认</p>
+<p>常用file确认文件类型</p>
+<p>less is more，less 命令查看文件内容，翻页</p>
+<p>tail &#x2F;head -5 或者 -n 5</p>
+<p>cat -n （显示行号，包括空行） -b (显示行号，不算空行)</p>
+<h2 id="第四章-更多bash-shell-监控和处理"><a href="#第四章-更多bash-shell-监控和处理" class="headerlink" title="第四章 更多bash shell 监控和处理"></a>第四章 更多bash shell 监控和处理</h2><p>Linux系统中使用的GNU ps 命令支持3种不同类型的命令行参数：<br>    Unix风格的参数，前面加单破折线；<br>    BSD风格的参数，前面不加破折线；<br>    GNU风格的长参数，前面加双破折线。</p>
+<h3 id="ps-命令"><a href="#ps-命令" class="headerlink" title="ps 命令"></a>ps 命令</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-f</td>
+<td>显示完整格式的输出</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>显示所有进程</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>长格式输出，比 -f 多出</td>
+</tr>
+<tr>
+<td>l</td>
+<td>BSD风格，进程状态更清晰</td>
+</tr>
+<tr>
+<td>–forest</td>
+<td>用层级结构显示出进程和父进程之间的关系</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h3><p>键入f允许你选择对输出进行排序的字段，</p>
+<p>键入d允许你修改轮询间隔。</p>
+<p>键入q可以退出 top 。</p>
+<h3 id="kill-命令"><a href="#kill-命令" class="headerlink" title="kill 命令"></a>kill 命令</h3><p>kill pid</p>
+<p>kill -s HUP pid （-s 选择其他信号）</p>
+<p>killall 进程名（可用通配符）</p>
+<p>​	killall http*</p>
+<h3 id="mount-命令"><a href="#mount-命令" class="headerlink" title="mount 命令"></a>mount 命令</h3><p>mount 命令提供如下四部分信息：<br> 媒体的设备文件名<br> 媒体挂载到虚拟目录的挂载点<br> 文件系统类型<br> 已挂载媒体的访问状态</p>
+<p>手动挂载</p>
+<p>mount -t type device directory</p>
+<p>手动将U盘&#x2F;dev&#x2F;sdb1挂载到&#x2F;media&#x2F;disk，可用下面的命令：<br>mount -t vfat &#x2F;dev&#x2F;sdb1 &#x2F;media&#x2F;disk</p>
+<p>卸载设备</p>
+<p>umount [directory | device ]</p>
+<p>如果有任何程序正在使用设备上的文件，系统就不会允许你卸载它：</p>
+<p>可用lsof命令获得使用它的进程信息，然后在应用中停止使用该设备或停止该进程。lsof命令的用法很简<br>单：lsof &#x2F;path&#x2F;to&#x2F;device&#x2F;node，或者lsof &#x2F;path&#x2F;to&#x2F;mount&#x2F;point</p>
+<h3 id="df-du-和-dd命令"><a href="#df-du-和-dd命令" class="headerlink" title="df du 和 dd命令"></a>df du 和 dd命令</h3><p>disk free </p>
+<p>df -h <file path></p>
+<p>disk usage</p>
+<p>du -h</p>
+<h3 id="sort-数据排序"><a href="#sort-数据排序" class="headerlink" title="sort 数据排序"></a>sort 数据排序</h3><p>sort -n 识别数字 -M 用三字符月份名按月份排序</p>
+<p>-t 分割符号， -k 列数 规定排序字段</p>
+<p>sort -t ‘:’ -k 3 -n &#x2F;etc&#x2F;passwd</p>
+<h3 id="grep-搜索数据"><a href="#grep-搜索数据" class="headerlink" title="grep 搜索数据"></a>grep 搜索数据</h3><p>grep [options] pattern [file]</p>
+<p>如果要进行反向搜索（输出不匹配该模式的行），可加 -v 参数。</p>
+<p>如果要显示匹配模式的行所在的行号，可加 -n 参数。</p>
+<p>如果只要知道有多少行含有匹配的模式，可用 -c 参数。</p>
+<p>如果要指定多个匹配模式，可用 -e 参数来指定每个模式。</p>
+<p>grep -e t -e f file1</p>
+<p>使用正则表达式</p>
+<p>grep [tf] file1</p>
+<h3 id="tar-归档数据"><a href="#tar-归档数据" class="headerlink" title="tar 归档数据"></a>tar 归档数据</h3><p> tar -zxvf filename.tgz 解压</p>
+<p>tar  -zcvf  [newfilename.tar.gz]  [objectlist….] 压缩</p>
+<p>tar -cvf  不压缩</p>
+<h2 id="第五章-理解shell"><a href="#第五章-理解shell" class="headerlink" title="第五章 理解shell"></a>第五章 理解shell</h2><p>bash 参数</p>
+<table>
+<thead>
+<tr>
+<th>参 数</th>
+<th>描 述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>启动一个能够接收用户输入的交互shell</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>以登录shell的形式启动</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>启动一个受限shell，用户会被限制在默认目录中</td>
+</tr>
+</tbody></table>
+<p>(command;….) 创建进程列表，生成子shell执行命令</p>
+<p>echo $BASH_SUBSHELL  结果为0表示不存在子shell执行命令，为1 则是子shell执行</p>
+<p>&amp; 后台执行</p>
+<p><strong>jobs</strong> -l 查看后台作业</p>
+<p>协程，但看起来不常用</p>
+<p><strong>corproc</strong> name { command; }</p>
+<p>当外部命令执行时，会创建出一个子进程。</p>
+<p>就算衍生出子进程或是创建了子shell，你仍然可以通过发送信号与其沟通，这一点无论是<br>在命令行还是在脚本编写中都是极其有用的。发送信号（signaling）使得进程间可以通过<br>信号进行通信。</p>
+<p>内建命令和外部命令的区别在于前者不需要使用子进程来执行。它们已经和shell编译成了一<br>体，作为shell工具的组成部分存在。</p>
+<p>可以利用 <strong>type 命令</strong>来了解某个命令是否是内建的</p>
+<p>type -a 查看多种实现</p>
+<p>有些命令有多种实现。例如 echo 和 pwd 既有内建命令也有外部命令。</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>显示最近执行过的命令</p>
+<p>!! 最新命令</p>
+<p>当输入 !! 时，bash首先会显示出从shell的历史记录中唤回的命令。然后执行该命令。<br>命令历史记录被保存在隐藏文件.bash_history中。</p>
+<p>bash命令的历史记录是先存放在内存中，当shell退出时才被写入到历史文件中。</p>
+<p>要实现强制写入，需要使用 history 命令的 -a选 项。</p>
+<p>要想强制重新读取.bash_history文件，更新终端会话的历史记录，可以使用 history -n 命令。</p>
+<p>!20 执行第20号命令</p>
+<h3 id="alias-命令别名"><a href="#alias-命令别名" class="headerlink" title="alias 命令别名"></a>alias 命令别名</h3><p>alias -p 查看已经存在的命令别名</p>
+<p>alias li&#x3D;’ls -li’</p>
+<p>因为命令别名属于内部命令，一个别名仅在它所被定义的shell进程中才有效。</p>
+<h2 id="第六章-环境变量"><a href="#第六章-环境变量" class="headerlink" title="第六章 环境变量"></a>第六章 环境变量</h2><p>env &#x2F; printenv 展示 全局环境变量</p>
+<p> set 命令会显示为某个特定进程设置的所有环境变量，包括局部变量、全局变量<br>以及用户定义变量。</p>
+<p><strong>创建局部环境变量</strong></p>
+<p>my_variable&#x3D;”hello world”</p>
+<p>变量名、等号和值之间没有空格</p>
+<p><strong>创建全局环境变量</strong></p>
+<p>先创建一个局部环境变量，然后再把它导出到全局环境中(export var_name)</p>
+<p><strong>删除环境变量</strong></p>
+<p>unset var_name</p>
+<p>在 unset 命令中引用环境变量时，记住不要使用 $</p>
+<p>如果要用到变量，使用 $ </p>
+<p>如果要操作变量，不使用 $ 。</p>
+<p>这条规则的一个例外就是使用 printenv 显示某个变量的值。</p>
+<p>不是所有的默认环境变量都会在运行 set 命令时列出。尽管这些都是默<br>认环境变量，但并不是每一个都必须有一个值。</p>
+<h3 id="PATH变量"><a href="#PATH变量" class="headerlink" title="PATH变量"></a>PATH变量</h3><p>PATH&#x3D;$PATH:&#x2F;home&#x2F;christine&#x2F;Scripts</p>
+<p>#导出</p>
+<p>export PATH&#x3D;$PATH:&#x2F;home&#x2F;christine&#x2F;Scripts </p>
+<p>当你登录Linux系统时，bash shell会作为登录shell启动。登录shell会从5个不同的启动文件里<br>读取命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/profile</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.bash_profile</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.bashrc</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.bash_login</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.profile</span></span><br></pre></td></tr></table></figure>
+
+<p>shell会按照按照下列顺序，运行第一个被找到的文件，余下的则被忽略：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.bash_profile</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.bash_login</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HOME/.profile</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，这个列表中并没有$HOME&#x2F;.bashrc文件。这是因为该文件通常通过其他文件运行的</p>
+<p>如果bash是作为交互式shell启动的，它就不会访问&#x2F;etc&#x2F;profile文件，只会检查用户HOME目录中的.bashrc文件。</p>
+<p>.bashrc文件有两个作用：一是查看&#x2F;etc目录下通用的bashrc文件，二是为用户提供一个定制自己的命令别名（参见第5章）和私有脚本函数（将在第17章中讲到）的地方。</p>
+<p>最后一种shell是非交互式shell。系统执行shell脚本时用的就是这种shell。</p>
+<p>bash shell提供了 BASH_ENV 环境变量。当shell启动一个非交互式shell进<br>程时，它会检查这个环境变量来查看要执行的启动文件。</p>
+<h3 id="持久化环境变量"><a href="#持久化环境变量" class="headerlink" title="持久化环境变量"></a><strong>持久化环境变量</strong></h3><p>最好是在**&#x2F;etc&#x2F;profile.d目录中创建一个以.sh结尾的文件**。把所有新的或修改过的全局环境变<br>量设置放在这个文件中。</p>
+<p>在大多数发行版中，存储个人用户永久性bash shell变量的地方是**$HOME&#x2F;.bashrc**文件。</p>
+<p>但如果设置了 BASH_ENV 变量，那么记住，除非它指向的是<br>$HOME&#x2F;.bashrc，否则你应该将非交互式shell的用户变量放在别的地方。</p>
+<p>图形化界面组成部分（如GUI客户端）的环境变量可能需要在另外一些配置文件中设置</p>
+<h3 id="数组变量"><a href="#数组变量" class="headerlink" title="数组变量"></a>数组变量</h3><p>移植性不好，不常用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mytest=(one two three four five)</span><br><span class="line">echo $mytest # 只会显示$mytest[0]</span><br><span class="line">echo $&#123;mytest[*]&#125;</span><br><span class="line"></span><br><span class="line">mytest[2]=seven # 修改</span><br><span class="line"></span><br><span class="line">unset mytest[2] # 删除，使得这个位置的变量为空</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第七章-文件权限"><a href="#第七章-文件权限" class="headerlink" title="第七章 文件权限"></a>第七章 文件权限</h2><h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p>&#x2F;etc&#x2F;passwd文件的字段包含了如下信息：<br> 登录用户名<br> 用户密码<br> 用户账户的UID（数字形式）<br> 用户账户的组ID（GID）（数字形式）<br> 用户账户的文本描述（称为备注字段）<br> 用户HOME目录的位置<br> 用户的默认shell</p>
+<p>在&#x2F;etc&#x2F;shadow文件的每条记录中都有9个字段：<br> 与&#x2F;etc&#x2F;passwd文件中的登录名字段对应的登录名<br> 加密后的密码<br> 自上次修改密码后过去的天数密码（自1970年1月1日开始计算）<br> 多少天后才能更改密码<br> 多少天后必须更改密码<br> 密码过期前提前多少天提醒用户更改密码<br> 密码过期后多少天禁用用户账户<br> 用户账户被禁用的日期（用自1970年1月1日到当天的天数表示）<br> 预留字段给将来使用</p>
+<h3 id="useadd"><a href="#useadd" class="headerlink" title="useadd"></a>useadd</h3><p>useradd -D 查看添加用户默认值</p>
+<p>在创建新用户时，如果你不在命令行中指定具体的值， useradd 命令就会使用 -D 选项所显示<br>的那些默认值。这个例子列出的默认值如下：<br> 新用户会被添加到GID为 100 的公共组；<br> 新用户的HOME目录将会位于&#x2F;home&#x2F;loginname；<br> 新用户账户密码在过期后不会被禁用；<br> 新用户账户未被设置过期日期；<br> 新用户账户将bash shell作为默认shell；<br> 系统会将&#x2F;etc&#x2F;skel目录下的内容复制到用户的HOME目录下；<br> 系统为该用户账户在mail目录下创建一个用于接收邮件的文件。</p>
+<p>修改默认值和创建新用户修改参数见书P128 P129</p>
+<p>userdel 删除用户，但不会清除用户文件</p>
+<p> -r 参数， userdel 会删除用户的HOME目录以及邮件目录</p>
+<p><img src="/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222211243363.png" alt="image-20221222211243363"></p>
+<p>chage 命令的日期值可以用下面两种方式中的任意一种：<br> YYYY-MM-DD格式的日期<br> 代表从1970年1月1日起到该日期天数的数值</p>
+<p>-I 设置密码过期到锁定账户的天数</p>
+<p>chage 命令中有个好用的功能是设置账户的过期日期。有了它，你就能创建在特定日期自动<br>过期的临时用户，再也不需要记住删除用户了！</p>
+<h3 id="usermod"><a href="#usermod" class="headerlink" title="usermod"></a>usermod</h3><p>-c 修改备注字段， -e 修改过期日期， -g 修改默认的登录组</p>
+<p>-l 修改用户账户的登录名。<br><strong>-L 锁定账户，使用户无法登录。</strong><br>-p 修改账户的密码。<br>-U 解除锁定，使用户能够登录<br>-G 组名，将该组添加到用户的属组的列表里，不会影响默认组。</p>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><p>&#x2F;etc&#x2F;group文件有4个字段：</p>
+<p> 组名<br> 组密码<br> GID<br> 属于该组的用户列表</p>
+<h3 id="group-add"><a href="#group-add" class="headerlink" title="group add"></a>group add</h3><p>groupadd shared(组名)</p>
+<p>usermod -G shared rich<br>usermod 命令的 -G 选项会把这个新组添加到该用户账户的组列表里。</p>
+<h3 id="groupmod"><a href="#groupmod" class="headerlink" title="groupmod"></a>groupmod</h3><p>GID（加 -g 选项）或组名（加 -n 选项）。</p>
+<p>groupmod -n sharing shared</p>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><p>输出结果的第一个字段就是描述文件和目录权限的编码。这个字段的第一个字符代表了对象的类型：<br> - 代表文件<br> d 代表目录<br> l 代表链接<br> c 代表字符型设备<br> b 代表块设备<br> n 代表网络设备</p>
+<p>rwx</p>
+<p>若没有某种权限，在该权限位会出现单破折线。这3组权限分别对应对象的3个安全级别：<br> 对象的属主<br> 对象的属组<br> 系统其他用户</p>
+<h3 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h3><p>第一位代表了一项特别的安全特性，叫作粘着位（sticky bit）</p>
+<p>先获取这3个 rwx 权限的值，然后将其转换成3位二进制值</p>
+<p>umask 值只是个掩码。它会屏蔽掉不想授予该安全级别的权限。</p>
+<p>对文件来说，全权限的值是 666 （所有用户都有读和写的权限）；而对目录来说，则是 777 （所有用户都有读、写、执行权限）</p>
+<p>用全权限值减去掩码值就是创建新文件或者目录的权限值</p>
+<p>目录读权限：表示用户可以用ls命令将目录下的具体子目录和文件罗列出来。</p>
+<p>目录写权限：表示用户可以在该目录下可创建子目录或者文件。</p>
+<p>目录执行权限：表示可以用cd进入该目录</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ugoa…][[+-=][rwxXstugo…]</span><br></pre></td></tr></table></figure>
+
+<p>第一组字符定义了权限作用的对象：<br> u 代表用户<br> g 代表组<br> o 代表其他<br> a 代表上述所有</p>
+<p>现有权限基础上增加权限（+），还是在现有权限基础上移除权限（-），或是将权限设置成后面的值（&#x3D;）</p>
+<p> s ：运行时重新设置UID或GID。<br> u ：将权限设置为跟属主一样。<br> g ：将权限设置为跟属组一样。<br> o ：将权限设置为跟其他用户一样。</p>
+<h3 id="chown-chgrp"><a href="#chown-chgrp" class="headerlink" title="chown chgrp"></a>chown chgrp</h3><p>chown 命令用来改变文件的属主，<br>chgrp 命令用来改变文件的默认属组。</p>
+<p>chown options owner[.group] file</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">example</span></span><br><span class="line">chown dan newfile</span><br><span class="line">chown dan.shared newfile</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a>共享文件</h2><p>想让其他人也能访问文件，要么改变其他用户所在安全组的访问权限，要么就给文件分配一个包含<br>其他用户的新默认属组。如果你想在大范围环境中创建文档并将文档与人共享，这会很烦琐。<br>幸好有一种简单的方法可以解决这个问题。</p>
+<p>Linux还为每个文件和目录存储了3个额外的信息位。<br> 设置用户ID（SUID）：当文件被用户使用时，程序会以文件属主的权限运行。<br> 设置组ID（SGID）：对文件来说，程序会以文件属组的权限运行；对目录来说，目录中创建的新文件会以目录的默认属组作为默认属组。<br> 粘着位：进程结束后文件还驻留（粘着）在内存中。</p>
+<p><strong>SGID位对文件共享非常重要。启用SGID位后，你可以强制在一个共享目录下创建的新文件都属于该目录的属组，这个组也就成为了每个用户的属组。</strong></p>
+<p>为了让这个环境能正常工作，所有组成员都需把他们的 umask 值<strong>设置成文件对属组成员可写</strong>。在前面的例子中， umask 改成了 002 ，所以文件对属组是可写的。</p>
+<p>SGID可通过 chmod 命令设置。它会加到标准3位八进制值之前（组成4位八进制值），或者在<br>符号模式下用符号 s 。</p>
+<p><img src="/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222224248450.png" alt="image-20221222224248450"></p>
+<h2 id="第八章-管理文件系统"><a href="#第八章-管理文件系统" class="headerlink" title="第八章 管理文件系统"></a>第八章 管理文件系统</h2><p>文件系统通过索引节点号而不是文件全名及路径来标识文件。</p>
+<p>ext文件系统名称中的extended部分来自其跟踪的每个文件的额外数据，包括：<br> 文件名<br> 文件大小<br> 文件的属主<br> 文件的属组<br> 文件的访问权限<br> 指向存有文件数据的每个硬盘块的指针</p>
+<h2 id="日志文件系统"><a href="#日志文件系统" class="headerlink" title="日志文件系统"></a>日志文件系统</h2><p>日志文件系统为Linux系统增加了一层安全性。它不再使用之前先将数据直接写入存储设备<br>再更新索引节点表的做法，而是先将文件的更改写入到临时文件（称作日志，journal）中。</p>
+<p>在数据成功写到存储设备和索引节点表之后，再删除对应的日志条目。</p>
+<p><img src="/2022/12/22/%5B%E9%98%85%E8%AF%BB%5D%5B8%5D%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%85%A8%E3%80%8B/image-20221222230009221.png" alt="image-20221222230009221"></p>
+<h2 id="写时复制文件系统"><a href="#写时复制文件系统" class="headerlink" title="写时复制文件系统"></a>写时复制文件系统</h2><p>ZFS是一个稳定的文件系统，与Resier4、Btrfs和ext4势均力敌。</p>
+<h2 id="创建分区"><a href="#创建分区" class="headerlink" title="创建分区"></a>创建分区</h2><h3 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h3><p>sudo fdisk -l 查看信息</p>
+<p>sudo fdisk &#x2F;dev&#x2F;sdb(新插入的硬盘)</p>
+<p>comand: m (help) , n (创建新分区) ， p(展示信息)，q(不保存退出)，w(保存退出)</p>
+<h2 id="创建文件系统"><a href="#创建文件系统" class="headerlink" title="创建文件系统"></a>创建文件系统</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/24/%5B%E6%96%87%E5%A8%B1%5D%5B%E7%94%B5%E5%BD%B1%5D/" rel="prev" title="文娱电影">
+      <i class="fa fa-chevron-left"></i> 文娱电影
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%98%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">第一部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="nav-number">2.1.</span> <span class="nav-text">第二章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%9F%BA%E6%9C%ACbash-shell-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">第三章 基本bash shell 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%9B%B4%E5%A4%9Abash-shell-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">第四章 更多bash shell 监控和处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ps-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.1.</span> <span class="nav-text">ps 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.2.</span> <span class="nav-text">top 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kill-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.3.</span> <span class="nav-text">kill 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mount-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.4.</span> <span class="nav-text">mount 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#df-du-%E5%92%8C-dd%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.5.</span> <span class="nav-text">df du 和 dd命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%95%B0%E6%8D%AE%E6%8E%92%E5%BA%8F"><span class="nav-number">2.3.6.</span> <span class="nav-text">sort 数据排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep-%E6%90%9C%E7%B4%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">2.3.7.</span> <span class="nav-text">grep 搜索数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar-%E5%BD%92%E6%A1%A3%E6%95%B0%E6%8D%AE"><span class="nav-number">2.3.8.</span> <span class="nav-text">tar 归档数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%90%86%E8%A7%A3shell"><span class="nav-number">2.4.</span> <span class="nav-text">第五章 理解shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">2.4.1.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias-%E5%91%BD%E4%BB%A4%E5%88%AB%E5%90%8D"><span class="nav-number">2.4.2.</span> <span class="nav-text">alias 命令别名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.5.</span> <span class="nav-text">第六章 环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PATH%E5%8F%98%E9%87%8F"><span class="nav-number">2.5.1.</span> <span class="nav-text">PATH变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">持久化环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%8F%98%E9%87%8F"><span class="nav-number">2.5.3.</span> <span class="nav-text">数组变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">2.6.</span> <span class="nav-text">第七章 文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">2.7.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useadd"><span class="nav-number">2.7.1.</span> <span class="nav-text">useadd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usermod"><span class="nav-number">2.7.2.</span> <span class="nav-text">usermod</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">2.8.</span> <span class="nav-text">用户组管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#group-add"><span class="nav-number">2.8.1.</span> <span class="nav-text">group add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupmod"><span class="nav-number">2.8.2.</span> <span class="nav-text">groupmod</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">2.9.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#umask"><span class="nav-number">2.9.1.</span> <span class="nav-text">umask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">2.9.2.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chown-chgrp"><span class="nav-number">2.9.3.</span> <span class="nav-text">chown chgrp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6"><span class="nav-number">2.10.</span> <span class="nav-text">共享文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.11.</span> <span class="nav-text">第八章 管理文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.12.</span> <span class="nav-text">日志文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.13.</span> <span class="nav-text">写时复制文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA"><span class="nav-number">2.14.</span> <span class="nav-text">创建分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fdisk"><span class="nav-number">2.14.1.</span> <span class="nav-text">fdisk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.15.</span> <span class="nav-text">创建文件系统</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">fea01</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fea01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
